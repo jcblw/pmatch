@@ -53,14 +53,12 @@ const matchesAll = (args) => (arg, i) => {
 const argMatch = (dictionarys) => (...args) => {
   // might get clever and generate code for this based on the dictionary
   // https://www.youtube.com/watch?v=wBOX_i7Z514
-  let ret;
   // const matchesArgs = matchesAll(args)
-  dictionarys.forEach((dictionary) => {
-    if (dictionary.match(args) && !ret) {
-      ret = true
-      dictionary.handler(...args)
+  for (let dict = 0; dict < dictionarys.length; dict ++) {
+    if (dictionarys[dict].match(args)) {
+      return dictionarys[dict].handler(...args)
     }
-  })
+  }
 
   //   console.log(dictionary.pattern.map(compileExpression).join('\n'))
   //   if (dictionary.pattern.every(matchesArgs) && !ret) {
