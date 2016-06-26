@@ -15,25 +15,24 @@ const shallowArrayCompare = (x, y) => x.every((k, i) => k === y[i])
 const safe = JSON.stringify
 // compiled fn
 // will receive args argument
-const compiledIsObject = `typeof arg === 'object' && !Array.isArray(arg) && arg`
-const compileBasic = arg => `arg === ${safe(arg)}`
-const compileShallowObjCompare = arg => Object.keys(arg)
-  .map(key => `arg[${safe(key)}] === ${safe(arg[key])}`)
+const compileIsObject = i => `typeof args[${i}] === 'object' && !Array.isArray(args[${i}]) && args[${i}]`
+const compileShallowObjCompare = (arg, i) => Object.keys(arg)
+  .map(key => `args[${i}][${safe(key)}] === ${safe(arg[key])}`)
   .join(' && ')
-const compileShallowArrayCompare = arr => arr
-  .map((key, i) => `arg[${i}] === ${safe(key)}`)
+const compileShallowArrayCompare = (arr, i) => arr
+  .map((key, index) => `args[${i}][${index}] === ${safe(key)}`)
   .join(' && ')
 const compileExpression = (arg, i) => {
   if (isObject(arg)) {
-    return `if (i === ${i} && ${compiledIsObject}) return ${compileShallowObjCompare(arg)}`
+    return `${compileIsObject(i)} && ${compileShallowObjCompare(arg, i)}`
   }
   if (Array.isArray(arg)) {
-    return `if (i === ${i} && Array.isArray(arg)) return ${compileShallowArrayCompare(arg)}`
+    return `Array.isArray(args[${i}]) && ${compileShallowArrayCompare(arg, i)}`
   }
   if (arg === '*') {
-    return `if (i === ${i}) return true`
+    return `args[${i}]`
   }
-  return `if (i === ${i}) return arg === ${safe(arg)}`
+  return `args[${i}] === ${safe(arg)}`
 }
 
 const matchesAll = (args) => (arg, i) => {
@@ -57,7 +56,7 @@ const argMatch = (dictionarys) => (...args) => {
   let ret;
   // const matchesArgs = matchesAll(args)
   dictionarys.forEach((dictionary) => {
-    if (args.every(dictionary.match)) {
+    if (dictionary.match(args)) {
       ret = true
       dictionary.handler(...args)
     }
@@ -88,7 +87,7 @@ pmatch.prototype.of = function (patterns = []) {
 
 pmatch.prototype.when = function (...args) {
   return this.of([{
-    match: new Function('arg', 'i', init(...args).map(compileExpression).join(';')),
+    match: new Function('args', `return ${init(...args).map(compileExpression).join(' && ')}`),
     pattern: init(...args),
     handler: tail(...args)
   }])
