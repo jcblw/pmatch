@@ -56,7 +56,7 @@ const argMatch = (dictionarys) => (...args) => {
   let ret;
   // const matchesArgs = matchesAll(args)
   dictionarys.forEach((dictionary) => {
-    if (dictionary.match(args)) {
+    if (dictionary.match(args) && !ret) {
       ret = true
       dictionary.handler(...args)
     }
