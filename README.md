@@ -1,5 +1,7 @@
 # pmatch
 
+[![Build Status](https://travis-ci.org/jcblw/pmatch.svg?branch=master)](https://travis-ci.org/jcblw/pmatch)
+
 Pmatch is yet another attempt to make pattern matching a thing in javascript.
 The concept of argument pattern matching comes from [Haskell](https://www.haskell.org/).
 
