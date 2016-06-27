@@ -24,10 +24,11 @@ Pmatch.prototype.of = function (patterns = []) {
 }
 
 Pmatch.prototype.when = function (...args) {
+  console.log(init(...args).map(compile.expression))
   return this.of([{
     match: new Function( // eslint-disable-line
       'args',
-      `return ${init(...args).map(compile.expression).join(' && ')}`
+      `return ${init(...args).map(compile.expression).join(' && ') || 'true'}`
     ),
     handler: tail(...args)
   }])

@@ -1,6 +1,6 @@
 {
-  "name": "patternmatch",
-  "version": "1.0.0",
+  "name": "pmatch",
+  "version": "0.1.0",
   "description": "",
   "main": "src/index.js",
   "dependencies": {},
@@ -12,6 +12,9 @@
     "lint": "standard",
     "test": "npm run lint && tape test/*"
   },
+  "files": [
+    "src/*"
+  ],
   "keywords": [],
   "author": "",
   "license": "ISC"

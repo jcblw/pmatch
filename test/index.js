@@ -130,3 +130,21 @@ test('the pmatch.prototype.when method', (t) => {
   )
   t.end()
 })
+test('empty when functions', (t) => {
+  const fn = pmatch().when(() => true)
+  t.equal(
+    fn(),
+    true,
+    'when adding a when statement that has no arguments to match it acts as a catchall'
+  )
+  t.end()
+})
+test('passing and empty array to when', t => {
+  const fn = pmatch().when([], () => true)
+  t.equal(
+    fn([]),
+    true,
+    'when passing an empty array the array check should check length'
+  )
+  t.end()
+})
