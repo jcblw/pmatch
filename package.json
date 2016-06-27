@@ -1,7 +1,7 @@
 {
   "name": "pmatch",
   "version": "0.1.0",
-  "description": "",
+  "description": "Pmatch is yet another attempt to make pattern matching a thing in javascript.",
   "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
