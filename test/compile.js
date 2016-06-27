@@ -76,7 +76,7 @@ test('the expression method', (t) => {
   )
   t.equal(
     compile.expression(['foo'], 10),
-    'Array.isArray(args[10]) && args[10][0] === "foo"',
+    'Array.isArray(args[10]) && args[10].length === 1 && args[10][0] === "foo"',
     `compile.expression when passed an array it outputs an is array
      check and also the output from shallowArrayCompare together with
      an &&`

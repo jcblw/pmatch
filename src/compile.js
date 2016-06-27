@@ -18,7 +18,7 @@ const shallowArrayCompare = (arr, i) => {
 }
 const expression = (arg, i) => {
   if (isObj(arg)) return `${isObject(i)} && ${shallowObjCompare(arg, i)}`
-  if (Array.isArray(arg)) return `Array.isArray(args[${i}]) && args[${i}].length === ${arg.length} ${arg.length ? ` && ${shallowArrayCompare(arg, i)}` : ''}`
+  if (Array.isArray(arg)) return `Array.isArray(args[${i}]) && args[${i}].length === ${arg.length}${arg.length ? ` && ${shallowArrayCompare(arg, i)}` : ''}`
   if (typeof arg === 'function') return `typeof args[${i}] === 'function'`
   if (arg === '*') return `typeof args[${i}] !== 'undefined'`
   return `args[${i}] === ${safe(arg)}`
