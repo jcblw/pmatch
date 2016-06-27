@@ -27,11 +27,10 @@ fn('baz') // it's something else
 Pmatch will attempt to match the correct argument pattern and call the correct function.
 
 ```javascript
+const _void = () => []
 const map = pmatch()
-  .when('*', [], () => [])
-  .when(() => {}, (f, a) => {
-    return [f(a[0])].concat(map(f, a.slice(1)))
-  })
+  .when('*', [], _void)
+  .when(_void, (f, [x, ...xs]) => [f(x)].concat(map(f, xs)))
 
 map(x => x * 10, [10, 20]) // [100, 200]
 ```
