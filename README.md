@@ -1,5 +1,7 @@
 # pmatch
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/jcblw/pmatch.svg)](https://greenkeeper.io/)
+
 [![Build Status](https://travis-ci.org/jcblw/pmatch.svg?branch=master)](https://travis-ci.org/jcblw/pmatch)
 
 Pmatch is yet another attempt to make pattern matching a thing in javascript.
